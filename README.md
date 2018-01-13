@@ -6,3 +6,9 @@ Added support zip entry filename encoding.
 ```
 Supported encodings are based on [iconv-lite](https://www.npmjs.com/package/iconv-lite).
 The main target of this module is zip created on Windows.
+
+# Installation
+
+With [npm](http://npmjs.org) do:
+
+    $ npm install adm-zip-with-enc
