@@ -2,7 +2,9 @@
 Added support zip entry filename encoding.
 ```javascript
 /* Supports decompression only to avoid spreading more chaos! */
+  var AdmZip = require("adm-zip-with-enc");
   var zip = new AdmZip("./file_made_by_windows.zip", "shiftjis");
+  zip.extractAllTo('./dest');
 ```
 Supported encodings are based on [iconv-lite](https://www.npmjs.com/package/iconv-lite).
 The main target of this module is zip created on Windows.
