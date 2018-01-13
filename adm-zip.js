@@ -10,21 +10,21 @@ var ZipEntry = require("./zipEntry"),
 var isWin = /^win/.test(process.platform);
 
 
-module.exports = function(/*String*/input) {
+module.exports = function(/*String*/input, /*String*/encode) {
     var _zip = undefined,
         _filename = "";
 
     if (input && typeof input === "string") { // load zip file
         if (fs.existsSync(input)) {
             _filename = input;
-            _zip = new ZipFile(input, Utils.Constants.FILE);
+            _zip = new ZipFile(input, Utils.Constants.FILE, encode);
         } else {
            throw Utils.Errors.INVALID_FILENAME;
         }
     } else if(input && Buffer.isBuffer(input)) { // load buffer
-        _zip = new ZipFile(input, Utils.Constants.BUFFER);
+        _zip = new ZipFile(input, Utils.Constants.BUFFER, encode);
     } else { // create new zip file
-        _zip = new ZipFile(null, Utils.Constants.NONE);
+        _zip = new ZipFile(null, Utils.Constants.NONE, encode);
     }
 
     function escapeFileName(/*String*/filename){

@@ -2,7 +2,7 @@ var ZipEntry = require("./zipEntry"),
     Headers = require("./headers"),
     Utils = require("./util");
 
-module.exports = function(/*String|Buffer*/input, /*Number*/inputType) {
+module.exports = function(/*String|Buffer*/input, /*Number*/inputType, /*String*/encode ) {
     var entryList = [],
         entryTable = {},
         _comment = new Buffer(0),
@@ -10,7 +10,7 @@ module.exports = function(/*String|Buffer*/input, /*Number*/inputType) {
         fs = Utils.FileSystem.require(),
         inBuffer = null,
         mainHeader = new Headers.MainHeader();
-
+    var filenameEncode = encode
     if (inputType == Utils.Constants.FILE) {
         // is a filename
         filename = input;
@@ -31,7 +31,7 @@ module.exports = function(/*String|Buffer*/input, /*Number*/inputType) {
         for(var i = 0; i < entryList.length; i++) {
 
             var tmp = index,
-                entry = new ZipEntry(inBuffer);
+                entry = new ZipEntry(inBuffer, filenameEncode);
             entry.header = inBuffer.slice(tmp, tmp += Utils.Constants.CENHDR);
 
             entry.entryName = inBuffer.slice(tmp, tmp += entry.header.fileNameLength);

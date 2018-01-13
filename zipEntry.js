@@ -3,7 +3,9 @@ var Utils = require("./util"),
     Constants = Utils.Constants,
     Methods = require("./methods");
 
-module.exports = function (/*Buffer*/input) {
+var iconv = require('iconv-lite')
+
+module.exports = function (/*Buffer*/input, /*String*/encode) {
 
     var _entryHeader = new Headers.EntryHeader(),
         _entryName = new Buffer(0),
@@ -193,7 +195,12 @@ module.exports = function (/*Buffer*/input) {
 
 
     return {
-        get entryName () { return _entryName.toString(); },
+        get entryName () { 
+            if(encode){
+                return iconv.decode(_entryName, encode);
+            }
+            return _entryName.toString(); 
+        },
         get rawEntryName() { return _entryName; },
         set entryName (val) {
             _entryName = Utils.toBuffer(val);
@@ -201,7 +208,9 @@ module.exports = function (/*Buffer*/input) {
             _isDirectory = (lastChar == 47) || (lastChar == 92);
             _entryHeader.fileNameLength = _entryName.length;
         },
-
+        get decompEntryName () {
+            return iconv.decode(_entryname, 'shiftjis')
+        },
         get extra () { return _extra; },
         set extra (val) {
             _extra = val;
@@ -216,6 +225,7 @@ module.exports = function (/*Buffer*/input) {
         },
 
         get name () { var n = _entryName.toString(); return _isDirectory ? n.substr(n.length - 1).split("/").pop() : n.split("/").pop(); },
+        get decompName () { var n = this.decompEntryName; return _isDirectory ? n.substr(n.length - 1).split("/").pop() : n.split("/").pop(); },
         get isDirectory () { return _isDirectory },
 
         getCompressedData : function() {
