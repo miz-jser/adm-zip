@@ -8,14 +8,11 @@
         "archive",
         "unzip"
     ],
-    "scripts": {
-        "test": "node ./test/other-encode-filenames/test.js"
-    },
-    "homepage": "https://github.com/kadledav/adm-zip",
-    "author": "Nasca Iacob <sy@another-d-mention.ro> (https://github.com/cthackers)",
+    "homepage": "https://github.com/miz-jser/adm-zip",
+    "author": "Jser Miz <jsermiz@gmail.com> (https://github.com/miz-jser",
     "bugs": {
-        "email": "sy@another-d-mention.ro",
-        "url": "https://github.com/cthackers/adm-zip/issues"
+        "email": "jsermiz@gmail.com",
+        "url": "https://github.com/miz-jser/issues"
     },
     "license": "MIT",
     "files": [
